@@ -1,6 +1,6 @@
 # order-service
 
-Below Liks are for Services 8100 port for Order service and 8200 is for order item service.
+Below Liks are Port 8100 for Order service and Port 8200 is for order item service.
 
 Get Metod below are : 
 
