@@ -10,6 +10,7 @@ import com.order.service.entity.Order;
 import com.order.service.exception.OrderNotFoundException;
 import com.order.service.model.OrderItems;
 import com.order.service.proxy.OrderItemServiceProxy;
+import com.order.service.repository.OrderRepository;
 import com.order.service.request.OrderItemUpdateRequest;
 import com.order.service.request.OrderRequest;
 import com.order.service.response.OrderResponse;
@@ -20,10 +21,30 @@ public class OrderMapperUtill {
 	@Autowired
 	private OrderItemServiceProxy orderItemServiceProxy;
 
+	
+	@Autowired
+	OrderRepository orderRepository;
+
 	public List<OrderResponse> getOrderToOrderResponse(List<Order> orders) {
 
 		List<OrderResponse> orderResponses = new ArrayList<OrderResponse>();
 
+		
+		orders = orderRepository.findAll();
+		
+		
+		for (Order o : orders) {
+			OrderResponse res = new OrderResponse();
+			res.setCustomerName(o.getCustomerName());
+			res.setOrderDate(o.getOrderDate());
+			OrderItems orderItems = orderItemServiceProxy.getItemsById(o.getItemId());
+			res.setOrderItems(orderItems);
+			res.setShippingAddress(o.getShippingAddress());
+			res.setTotal(o.getTotal());
+			orderResponses.add(res);
+		}
+		
+		
 		/*
 		 * List<OrderItems> findAllOrderItems =
 		 * orderItemServiceProxy.findAllOrderItems();
