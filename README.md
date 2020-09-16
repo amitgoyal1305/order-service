@@ -2,31 +2,37 @@
 
 Below Liks are Port 8100 for Order service and Port 8200 is for order item service.
 
-Get Metod below are : 
 
-http://localhost:8200//order-items
+# Find Order Item by Id 
 
-http://localhost:8100//orders
+GET -  http://localhost:8200/order/item/{id}   or   http://localhost:8200/order/item/11102 
+Response : 
+{
+    "id": 11102,
+    "productCode": "PD",
+    "productName": "Pen Drive",
+    "quantity": 10
+}
 
-http://localhost:8200/itembyname/Card%20Reader
+# Find All Order Items : 
 
-http://localhost:8200/itembyCode/Card%20Reader
-
-http://localhost:8200/itembyid/Card%20Reader
-
-http://localhost:8200/updateitem
-
-http://localhost:8100/order/place
-
-http://localhost:8100/order/{id}
+GET -  http://localhost:8200/order/items
 
 
 
+# Find Order by Id
+GET - http://localhost:8100/order/{id}  or http://localhost:8100/order/10001
 
 
-Post : 
+# Find All Order List : 
 
-http://localhost:8100//order/place
+GET - http://localhost:8100/orders
+
+
+# For Place Order 
+POST : 
+
+http://localhost:8100/order/place  
 
 Request : 
 
