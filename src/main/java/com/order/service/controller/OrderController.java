@@ -25,7 +25,7 @@ import com.order.service.response.OrderResponse;
 public class OrderController {
 
 	@Autowired
-	private OrderServiceModel orderServiceModel;
+	private OrderServiceModel orderService;
 
 	@Autowired
 	RestTemplate restTemplate;
@@ -33,20 +33,20 @@ public class OrderController {
 
 	@GetMapping("/order/{id}")
 	public Order getRestTemplate(@PathVariable("id") Integer id) throws OrderNotFoundException {
-		return orderServiceModel.getRestTemplate(id);
+		return orderService.getRestTemplate(id);
 	}
 
 	@GetMapping("/orders")
 	public ResponseEntity<List<OrderResponse>> getOrders() {
 
-		List<OrderResponse> orderResponses = orderServiceModel.getOrders();
+		List<OrderResponse> orderResponses = orderService.getOrders();
 		return new ResponseEntity<List<OrderResponse>>(orderResponses, HttpStatus.OK);
 	}
 
 	@PostMapping("/order/place")
 	@Transactional(rollbackOn = Exception.class)
 	public ResponseEntity<Object> orderCreate(@RequestBody @Valid OrderRequest request) throws OrderNotFoundException {
-		orderServiceModel.orderCreate(request);
+		orderService.orderCreate(request);
 		return ResponseEntity.noContent().build();
 	}
 
