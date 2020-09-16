@@ -14,14 +14,14 @@ import com.order.service.request.OrderItemUpdateRequest;
 
 @FeignClient(name ="order-item-service",url="http://localhost:8200")
 public interface OrderItemServiceProxy {
-	@GetMapping("/order-items")
+	@GetMapping("/order/items")
 	public List<OrderItems> findAllOrderItems();
 	
 	
-	@GetMapping("/itembyid/{id}")
+	@GetMapping("/order/item/{id}")
 	public OrderItems getItemsById(@PathVariable Integer id);
 	
-	@PutMapping("/updateitem")
+	@PutMapping("/order/item/update")
 	public  ResponseEntity<Object> updateItem(@RequestBody OrderItemUpdateRequest orderItemUpdateRequest);
 
 }

@@ -5,18 +5,14 @@ import java.util.Date;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
-//@ApiModel(description = "All Details for Place Order")
 public class OrderRequest {
 
-	//@Min(value = 1,message = "Name Should have altleat one Charector")
-	//@NotBlank
-	@Size(min = 2,message = "Name Should have altleat one Charector")
+	@Size(min = 2,message = "Name should have altleat two charector")
 	private String customerName;
 	
 	private Date orderDate = new Date();
 
-	//@Min(value = 2,message = "Shipping Address Should have altleat two Charector")
-	@Size(min  = 2,message = "Shipping Address Should have altleat two Charector")
+	@Size(min  = 2,message = "Shipping address should have altleat two charector")
 	private String shippingAddress;
 
 	@Min(value = 1 , message = "Item Id Should have altleat one Number Value Not Zero")

@@ -21,7 +21,6 @@ public class OrderMapperUtill {
 	@Autowired
 	private OrderItemServiceProxy orderItemServiceProxy;
 
-	
 	@Autowired
 	OrderRepository orderRepository;
 
@@ -29,10 +28,8 @@ public class OrderMapperUtill {
 
 		List<OrderResponse> orderResponses = new ArrayList<OrderResponse>();
 
-		
 		orders = orderRepository.findAll();
-		
-		
+
 		for (Order o : orders) {
 			OrderResponse res = new OrderResponse();
 			res.setCustomerName(o.getCustomerName());
@@ -43,19 +40,6 @@ public class OrderMapperUtill {
 			res.setTotal(o.getTotal());
 			orderResponses.add(res);
 		}
-		
-		
-		/*
-		 * List<OrderItems> findAllOrderItems =
-		 * orderItemServiceProxy.findAllOrderItems();
-		 * 
-		 * 
-		 * 
-		 * for (OrderItems orderItems : findAllOrderItems) {
-		 * System.out.println(orderItems.toString()); }
-		 */
-
-		System.out.println(orderItemServiceProxy.getItemsById(11103).toString());
 
 		return orderResponses;
 
@@ -67,14 +51,14 @@ public class OrderMapperUtill {
 		order.setCustomerName(request.getCustomerName());
 		order.setOrderDate(request.getOrderDate());
 		order.setShippingAddress(request.getShippingAddress());
-		
+
 		OrderItems items = orderItemServiceProxy.getItemsById(request.getItemId());
-		if(items == null || items.getProductName().isEmpty() || items.getProductName().equals("")) {
+		if (items == null || items.getProductName().isEmpty() || items.getProductName().equals("")) {
 			throw new OrderNotFoundException("Item Not Found");
-		}else {
-			if(!(items.getQuantity() >= request.getQuantity())) {
+		} else {
+			if (!(items.getQuantity() >= request.getQuantity())) {
 				throw new OrderNotFoundException("Item Quantity is not available");
-			}else {
+			} else {
 				OrderItemUpdateRequest orderItemUpdateRequest = new OrderItemUpdateRequest();
 				orderItemUpdateRequest.setId(request.getItemId());
 				orderItemUpdateRequest.setQuantity(items.getQuantity() - request.getQuantity());
@@ -83,17 +67,7 @@ public class OrderMapperUtill {
 		}
 		order.setItemId(request.getItemId());
 		order.setTotal(request.getPrice() * request.getQuantity());
-		
-		
-		/*
-		 * List<OrderItems> findAllOrderItems =
-		 * orderItemServiceProxy.findAllOrderItems();
-		 * 
-		 * 
-		 * 
-		 * for (OrderItems orderItems : findAllOrderItems) {
-		 * System.out.println(orderItems.toString()); }
-		 */
+
 		return order;
 
 	}
