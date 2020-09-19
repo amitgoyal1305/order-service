@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.order.service.entity.Order;
+import com.order.service.entity.OrderItem;
 import com.order.service.exception.OrderNotFoundException;
-import com.order.service.model.OrderItems;
 import com.order.service.proxy.OrderItemServiceProxy;
 import com.order.service.repository.OrderRepository;
 import com.order.service.request.OrderItemUpdateRequest;
@@ -34,7 +34,7 @@ public class OrderMapperUtill {
 			OrderResponse res = new OrderResponse();
 			res.setCustomerName(o.getCustomerName());
 			res.setOrderDate(o.getOrderDate());
-			OrderItems orderItems = orderItemServiceProxy.getItemsById(o.getItemId());
+			OrderItem orderItems = orderItemServiceProxy.getItemsById(o.getOrderItem().getId());
 			res.setOrderItems(orderItems);
 			res.setShippingAddress(o.getShippingAddress());
 			res.setTotal(o.getTotal());
@@ -44,6 +44,12 @@ public class OrderMapperUtill {
 		return orderResponses;
 
 	}
+	
+	
+	public Order getOredrById(Order order) {
+		order.setOrderItem(orderItemServiceProxy.getItemsById(order.getOrderItem().getId()));
+		return order;
+	}
 
 	public Order convertOrderRequestToOrder(OrderRequest request) throws OrderNotFoundException {
 
@@ -52,7 +58,7 @@ public class OrderMapperUtill {
 		order.setOrderDate(request.getOrderDate());
 		order.setShippingAddress(request.getShippingAddress());
 
-		OrderItems items = orderItemServiceProxy.getItemsById(request.getItemId());
+		OrderItem items = orderItemServiceProxy.getItemsById(request.getItemId());
 		if (items == null || items.getProductName().isEmpty() || items.getProductName().equals("")) {
 			throw new OrderNotFoundException("Item Not Found");
 		} else {
@@ -65,9 +71,8 @@ public class OrderMapperUtill {
 				orderItemServiceProxy.updateItem(orderItemUpdateRequest);
 			}
 		}
-		order.setItemId(request.getItemId());
+		order.setOrderItem(items);
 		order.setTotal(request.getPrice() * request.getQuantity());
-
 		return order;
 
 	}

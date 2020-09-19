@@ -32,8 +32,8 @@ public class OrderController {
 
 
 	@GetMapping("/order/{id}")
-	public Order getRestTemplate(@PathVariable("id") Integer id) throws OrderNotFoundException {
-		return orderService.getRestTemplate(id);
+	public Order getOredrById(@PathVariable("id") Integer id) throws OrderNotFoundException {
+		return orderService.getOredrById(id);
 	}
 
 	@GetMapping("/orders")
@@ -45,8 +45,8 @@ public class OrderController {
 
 	@PostMapping("/order/place")
 	@Transactional(rollbackOn = Exception.class)
-	public ResponseEntity<Object> orderCreate(@RequestBody @Valid OrderRequest request) throws OrderNotFoundException {
-		orderService.orderCreate(request);
+	public ResponseEntity<Object> createOrder(@RequestBody @Valid OrderRequest request) throws OrderNotFoundException {
+		orderService.createOrder(request);
 		return ResponseEntity.noContent().build();
 	}
 

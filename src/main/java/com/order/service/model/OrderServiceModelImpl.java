@@ -25,9 +25,9 @@ public class OrderServiceModelImpl implements OrderServiceModel {
 	@Autowired
 	private OrderMapperUtill orderMapperUtill;
 
-	public Order getRestTemplate(Integer id) throws OrderNotFoundException {
+	public Order getOredrById(Integer id) throws OrderNotFoundException {
 		try {
-			return orderRepository.findById(id).get();
+			return orderMapperUtill.getOredrById(orderRepository.findById(id).get());
 		} catch (NoSuchElementException e) {
 			throw new OrderNotFoundException("Order Not Found");
 		}
@@ -38,7 +38,7 @@ public class OrderServiceModelImpl implements OrderServiceModel {
 		return orderResponses;
 	}
 
-	public void orderCreate(OrderRequest request) throws OrderNotFoundException {
+	public void createOrder(OrderRequest request) throws OrderNotFoundException {
 		Order order= orderMapperUtill.convertOrderRequestToOrder(request);
 		orderRepository.save(order);
 	}

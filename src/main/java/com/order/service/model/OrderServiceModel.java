@@ -9,10 +9,10 @@ import com.order.service.response.OrderResponse;
 
 public interface OrderServiceModel {
 	
-	public Order getRestTemplate(Integer id) throws OrderNotFoundException;
+	public Order getOredrById(Integer id) throws OrderNotFoundException;
 	
 	public List<OrderResponse> getOrders();
 	
-	public void orderCreate(OrderRequest request) throws OrderNotFoundException ;
+	public void createOrder(OrderRequest request) throws OrderNotFoundException ;
 
 }

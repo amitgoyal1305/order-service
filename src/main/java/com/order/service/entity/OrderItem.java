@@ -1,7 +1,12 @@
-package com.order.service.model;
+package com.order.service.entity;
 
-public class OrderItems {
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity(name = "OrderItem")
+public class OrderItem {
 	
+	@Id
 	private int id;
 	private String productCode;
 	private String productName;

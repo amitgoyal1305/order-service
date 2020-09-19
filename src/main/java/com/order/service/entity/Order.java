@@ -6,8 +6,8 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
-import com.order.service.model.OrderItems;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 import io.swagger.annotations.ApiModel;
 
@@ -23,7 +23,10 @@ public class Order implements Serializable {
 	private String customerName;
 	private Date orderDate;
 	private String shippingAddress;
-	private Integer itemId;
+	
+	@OneToOne
+	@JoinColumn(name = "itemId", referencedColumnName = "id")
+	private OrderItem orderItem;
 	private Integer total;
 
 	public Integer getId() {
@@ -58,13 +61,11 @@ public class Order implements Serializable {
 		this.shippingAddress = shippingAddress;
 	}
 
-	public Integer getItemId() {
-		return itemId;
-	}
-
-	public void setItemId(Integer itemId) {
-		this.itemId = itemId;
-	}
+	/*
+	 * public Integer getItemId() { return itemId; }
+	 * 
+	 * public void setItemId(Integer itemId) { this.itemId = itemId; }
+	 */
 
 	public Integer getTotal() {
 		return total;
@@ -74,10 +75,21 @@ public class Order implements Serializable {
 		this.total = total;
 	}
 
+	public OrderItem getOrderItem() {
+		return orderItem;
+	}
+
+	public void setOrderItem(OrderItem orderItem) {
+		this.orderItem = orderItem;
+	}
+
 	@Override
 	public String toString() {
 		return "Order [id=" + id + ", customerName=" + customerName + ", orderDate=" + orderDate + ", shippingAddress="
-				+ shippingAddress + ", itemId=" + itemId + ", total=" + total + "]";
+				+ shippingAddress + ", orderItem=" + orderItem.toString() + ", total=" + total + "]";
 	}
+
+	
+	
 
 }
