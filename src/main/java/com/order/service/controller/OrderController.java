@@ -44,7 +44,7 @@ public class OrderController {
 	}
 
 	@PostMapping("/order/place")
-	@Transactional(rollbackOn = Exception.class)
+	//@Transactional(rollbackOn = Exception.class)
 	public ResponseEntity<Object> createOrder(@RequestBody @Valid OrderRequest request) throws OrderNotFoundException {
 		orderService.createOrder(request);
 		return ResponseEntity.noContent().build();
