@@ -1,8 +1,7 @@
-package com.order.service.controller;
+package com.order.controller;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,24 +14,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.order.service.entity.Order;
-import com.order.service.exception.OrderNotFoundException;
-import com.order.service.model.OrderServiceModel;
-import com.order.service.request.OrderRequest;
-import com.order.service.response.OrderResponse;
+import com.order.exception.OrderNotFoundException;
+import com.order.request.OrderRequest;
+import com.order.response.OrderResponse;
+import com.order.services.OrderService;
 
 @RestController
 public class OrderController {
 
 	@Autowired
-	private OrderServiceModel orderService;
+	private OrderService orderService;
 
 	@Autowired
 	RestTemplate restTemplate;
 
 
 	@GetMapping("/order/{id}")
-	public Order getOredrById(@PathVariable("id") Integer id) throws OrderNotFoundException {
+	public OrderResponse getOredrById(@PathVariable("id") Integer id) throws OrderNotFoundException {
 		return orderService.getOredrById(id);
 	}
 
@@ -44,7 +42,6 @@ public class OrderController {
 	}
 
 	@PostMapping("/order/place")
-	//@Transactional(rollbackOn = Exception.class)
 	public ResponseEntity<Object> createOrder(@RequestBody @Valid OrderRequest request) throws OrderNotFoundException {
 		orderService.createOrder(request);
 		return ResponseEntity.noContent().build();

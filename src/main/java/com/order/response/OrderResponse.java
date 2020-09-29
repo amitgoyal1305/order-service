@@ -1,9 +1,10 @@
-package com.order.service.response;
+package com.order.response;
 
 import java.util.Date;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.order.service.entity.OrderItem;
+import com.order.entity.OrderItem;
 
 public class OrderResponse {
 
@@ -12,7 +13,7 @@ public class OrderResponse {
 	private String customerName;
 	private Date orderDate;
 	private String shippingAddress;
-	private OrderItem orderItems;
+	private Set<OrderItem> orderItems;
 	private Integer total;
 
 	public Integer getId() {
@@ -47,11 +48,13 @@ public class OrderResponse {
 		this.shippingAddress = shippingAddress;
 	}
 
-	public OrderItem getOrderItems() {
+
+
+	public Set<OrderItem> getOrderItems() {
 		return orderItems;
 	}
 
-	public void setOrderItems(OrderItem orderItems) {
+	public void setOrderItems(Set<OrderItem> orderItems) {
 		this.orderItems = orderItems;
 	}
 

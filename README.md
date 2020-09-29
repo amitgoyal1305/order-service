@@ -1,27 +1,52 @@
 # order-service
 
-Below Liks are Port 8100 for Order service and Port 8200 is for order item service.
-
-
-# Find Order Item by Id 
-
-GET -  http://localhost:8200/order/item/{id}   or   http://localhost:8200/order/item/11102 
-Response : 
-{
-    "id": 11102,
-    "productCode": "PD",
-    "productName": "Pen Drive",
-    "quantity": 10
-}
-
-# Find All Order Items : 
-
-GET -  http://localhost:8200/order/items
-
-
 
 # Find Order by Id
 GET - http://localhost:8100/order/{id}  or http://localhost:8100/order/10001
+
+# Respone : 
+
+
+{
+    "customerName": "Amit Goyal",
+    "orderDate": "2020-09-29T18:30:00.000+00:00",
+    "shippingAddress": "Pune",
+    "orderItems": [
+        {
+            "id": 11107,
+            "productCode": "CR",
+            "productName": "Card Reader",
+            "quantity": 10
+        },
+        {
+            "id": 11101,
+            "productCode": "CR",
+            "productName": "Card Reader",
+            "quantity": 10
+        },
+        {
+            "id": 11103,
+            "productCode": "HD",
+            "productName": "Hard Disk",
+            "quantity": 10
+        },
+        {
+            "id": 11109,
+            "productCode": "HD",
+            "productName": "Hard Disk",
+            "quantity": 10
+        },
+        {
+            "id": 11102,
+            "productCode": "PD",
+            "productName": "Pen Drive",
+            "quantity": 10
+        }
+    ],
+    "total": 30
+}
+
+
 
 
 # Find All Order List : 
@@ -36,10 +61,24 @@ http://localhost:8100/order/place
 
 Request : 
 
-	{	 
-	"customerName" : "Ram Agnihotri",
-	"shippingAddress":"Pune",
-	"itemId" :11108  ,
-    "quantity" :3,
-	"price":10
-	}
+
+{
+        "customerName": "User Test",
+        "orderDate": "2020-09-26T18:30:00.000+00:00",
+        "shippingAddress": "Pune",
+        "orderItems": [
+            {
+               
+                "productCode": "CR",
+                "productName": "Card Reader",
+                "quantity": 2
+            },
+            {
+              
+                "productCode": "PD",
+                "productName": "Pen Drive",
+                "quantity": 6
+            }
+        ],
+        "price" : 10
+    }

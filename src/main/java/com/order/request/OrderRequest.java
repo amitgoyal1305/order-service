@@ -1,9 +1,13 @@
-package com.order.service.request;
+package com.order.request;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+
+import com.order.entity.OrderItem;
 
 public class OrderRequest {
 
@@ -15,8 +19,8 @@ public class OrderRequest {
 	@Size(min  = 2,message = "Shipping address should have altleat two charector")
 	private String shippingAddress;
 
-	@Min(value = 1 , message = "Item Id Should have altleat one Number Value Not Zero")
-	private Integer itemId;
+	@NotEmpty( message = "Item Id Should have altleat one Item Id")
+	private List<OrderItem>      orderItems;
 	
 	@Min(value = 1 , message = "quantity Should have altleat one Number Value Not Zero")
 	private Integer quantity;
@@ -48,16 +52,23 @@ public class OrderRequest {
 		this.shippingAddress = shippingAddress;
 	}
 
-	public Integer getItemId() {
-		return itemId;
-	}
-
-	public void setItemId(Integer itemId) {
-		this.itemId = itemId;
-	}
-
+	/*
+	 * public List<Integer> getItemIds() { return itemIds; }
+	 * 
+	 * public void setItemIds(List<Integer> itemIds) { this.itemIds = itemIds; }
+	 */
+	
+	
 	public Integer getQuantity() {
 		return quantity;
+	}
+
+	public List<OrderItem> getOrderItems() {
+		return orderItems;
+	}
+
+	public void setOrderItems(List<OrderItem> orderItems) {
+		this.orderItems = orderItems;
 	}
 
 	public void setQuantity(Integer quantity) {
@@ -75,7 +86,7 @@ public class OrderRequest {
 	@Override
 	public String toString() {
 		return "OrderRequest [customerName=" + customerName + ", orderDate=" + orderDate + ", shippingAddress="
-				+ shippingAddress + ", itemId=" + itemId + ", quantity=" + quantity + ", price=" + price + "]";
+				+ shippingAddress +  ", quantity=" + quantity + ", price=" + price + "]";
 	}
 
 	

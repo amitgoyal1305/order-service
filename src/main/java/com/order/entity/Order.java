@@ -1,32 +1,15 @@
-package com.order.service.entity;
+package com.order.entity;
 
-import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-
-import io.swagger.annotations.ApiModel;
-
-@Entity(name = "Orders")
-@ApiModel(description = "All Details for Order Item Entity")
-public class Order implements Serializable {
-
-	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue
+public class Order  {
 	private Integer id;
 	private String customerName;
 	private Date orderDate;
 	private String shippingAddress;
-	
-	@OneToOne
-	@JoinColumn(name = "itemId", referencedColumnName = "id")
-	private OrderItem orderItem;
+	private List<OrderItem>  orderItems = new ArrayList<OrderItem>();
 	private Integer total;
 
 	public Integer getId() {
@@ -75,21 +58,17 @@ public class Order implements Serializable {
 		this.total = total;
 	}
 
-	public OrderItem getOrderItem() {
-		return orderItem;
+	public List<OrderItem> getOrderItems() {
+		return orderItems;
 	}
 
-	public void setOrderItem(OrderItem orderItem) {
-		this.orderItem = orderItem;
+	public void setOrderItems(List<OrderItem> itemList) {
+		this.orderItems = itemList;
 	}
 
 	@Override
 	public String toString() {
 		return "Order [id=" + id + ", customerName=" + customerName + ", orderDate=" + orderDate + ", shippingAddress="
-				+ shippingAddress + ", orderItem=" + orderItem.toString() + ", total=" + total + "]";
+				+ shippingAddress + ", orderItems=" + orderItems + ", total=" + total + "]";
 	}
-
-	
-	
-
 }
